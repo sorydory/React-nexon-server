@@ -21,7 +21,7 @@ app.use("/upload",express.static("upload"));
 //storage 생성 
 const storage = multer.diskStorage({
     destination: (req, file, cd)=>{
-        cd(null, 'upload/event/');
+        cd(null, 'upload/news/');
     },
     filename: (req, file, cd)=>{
         const newFilename = file.originalname;
@@ -42,7 +42,7 @@ const conn = mysql.createConnection({
     user: "root",
     password: "1234",
     port: "3306",
-    database: "hotel" 
+    database: "news" 
 })
 //선연결하기
 conn.connect();
@@ -62,34 +62,6 @@ app.get("/special/:no",(req,res)=>{
    })
 })
 
-
-
-//회원가입 요청
-app.post("/join", async(req,res)=>{
-    const mytextpass = req.body.m_pass;
-    let myPass = "";
-    const {m_name,m_pass,m_phone,m_nickname,m_addr1,m_addr2,m_email} = req.body;
-    console.log(req.body);
-    //빈 문자열이 아니고 undefined가 아닐 때
-    if(mytextpass != '' && mytextpass != undefined){
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            //hash메소드 호출되면 인자로 넣어준 비밀번호를 암호화하여
-            //콜백함수 안 hash로 돌려준다.
-            bcrypt.hash(mytextpass, salt, function(err, hash) {
-                myPass = hash;
-                //쿼리작성
-                conn.query(`insert into member(m_name, m_pass, m_phone, m_nickname, m_address1, m_address2,m_email) values('${m_name}','${m_pass}','${m_phone}','${m_nickname}','${m_addr1}','${m_addr2}','${m_email}')
-                `,(err,result,fields)=>{
-                    if(result){
-                        res.send("등록되었습니다.")
-                    }
-                })
-            });
-        });
-    }
-    //insert into member(m_name, m_pass, m_phone, m_nickname, m_add1, m_add2,m_email)
-    //values(${})
-})
 //서버를 구동 
 app.listen(port, ()=>{
     console.log("서버가 동작하고 있습니다.");
