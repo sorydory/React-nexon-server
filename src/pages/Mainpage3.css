@@ -1,0 +1,33 @@
+.main3{
+    height: 100vh;
+    width: 100%;
+    z-index: 10;
+    margin-top: 200px;
+}
+.main3h {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.main3h h2 {
+    font-size: 80px;
+}
+.main3h button {
+    border: none;
+    background-color: #fff;
+    font-size: 30px;
+    background-color: skyblue;
+    height: 20px;
+}
+.main3sub ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+.main3sub li {
+    padding: 20px 50px;
+}
+.main3sub img {
+    width: 100%;
+}
