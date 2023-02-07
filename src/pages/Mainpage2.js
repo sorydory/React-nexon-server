@@ -1,6 +1,6 @@
 import React from 'react';
-import './Mainpage2.css';
-const Mainpage2 = () => {
+import './MainPage2.css';
+const MainPage2 = () => {
     return (
         <div className='main2'>
             <div className='titleText'>
@@ -28,4 +28,4 @@ const Mainpage2 = () => {
     );
 };
 
-export default Mainpage2;
+export default MainPage2;

@@ -1,7 +1,7 @@
 import React from 'react';
-import './Mainpage.css';
+import './MainPage.css';
 import { Carousel } from 'antd';
-const Mainpage = () => {
+const MainPage = () => {
   const contentStyle = {
     height: '160px',
     color: '#fff',
@@ -43,4 +43,4 @@ const Mainpage = () => {
   );
 };
 
-export default Mainpage;
+export default MainPage;

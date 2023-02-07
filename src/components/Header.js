@@ -2,22 +2,23 @@ import React from 'react';
 import './Header.css';
 import { BiChevronsUp, BiChevronsDown } from "react-icons/bi";
 
+
 const Header = () => {
     return (
         <header>
             <div className='menu'>
                 <h1><img src='images/main_logo.png' alt='' /></h1>
                 <ul>
-                    <li><a href=''>넥슨게임즈</a> </li>
+                   <li>넥슨게임즈</li>
                     <li><a href=''>게임</a></li>
                     <li><a href=''>인재채용</a></li>
                     <li><a href=''>투자정보</a></li>
                     <li><a href=''>미디어</a></li>
                 </ul>
                 <div className='icon'>
-                <BiChevronsUp/>
-                <BiChevronsDown/>
-            </div>
+                    <BiChevronsUp/>
+                    <BiChevronsDown/>
+                </div>
             </div>
             <div className='hidden'>
                 <ul>
