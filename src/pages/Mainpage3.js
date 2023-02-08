@@ -6,7 +6,7 @@ const MainPage3 = () =>{
         <div className="main3">
             <div className="main3h">
                 <h2>News</h2>
-                <button>more →</button>
+                <p><b>more →</b></p>
             </div>
             <div className="main3sub">
                 <ul>
