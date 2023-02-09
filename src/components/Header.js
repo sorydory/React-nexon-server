@@ -1,15 +1,16 @@
 import React from 'react';
 import './Header.css';
 import { BiChevronsUp, BiChevronsDown } from "react-icons/bi";
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
     return (
         <header>
             <div className='menu'>
-                <h1><img src='images/main_logo.png' alt='' /></h1>
+                <h1><a href='/'><img src='images/main_logo.png' alt='' /></a></h1>
                 <ul>
-                   <li>넥슨게임즈</li>
+                   <li><Link to='/SubNexonGames'>넥슨게임즈</Link></li>
                     <li><a href=''>게임</a></li>
                     <li><a href=''>인재채용</a></li>
                     <li><a href=''>투자정보</a></li>
@@ -20,7 +21,7 @@ const Header = () => {
                     <BiChevronsDown/>
                 </div>
             </div>
-            <div className='hidden'>
+            {/* <div className='hidden'>
                 <ul>
                     <li><a href='/'>넥슨게임즈</a></li>
                 </ul>
@@ -47,7 +48,7 @@ const Header = () => {
                     <li><a href='/'>보도자료</a></li>
                     <li><a href='/'>멀티미디어</a></li>
                 </ul>
-             </div>
+             </div> */}
         </header>
     );
 };

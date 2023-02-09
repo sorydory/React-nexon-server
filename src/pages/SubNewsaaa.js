@@ -1,6 +1,5 @@
 import React from 'react';
 import './SubNews.css';
-import SubNewsInfo from './SubNewsInfo';
 
 const SubNews = () => {
     return (

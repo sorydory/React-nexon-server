@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './MainPage3.css';
 
 const MainPage3 = () =>{
@@ -6,7 +7,7 @@ const MainPage3 = () =>{
         <div className="main3">
             <div className="main3h">
                 <h2>News</h2>
-                <p><b>more →</b></p>
+                <p><Link to="/SubNews"><b>more →</b></Link></p>
             </div>
             <div className="main3sub">
                 <ul>

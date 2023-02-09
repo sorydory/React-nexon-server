@@ -17,7 +17,6 @@ const SubNexonGames = () => {
                 세계로부터 주목받는 글로벌 개발사로 성장해 나갈 것입니다.
                 </p>
             </div>
-
             <div className='second_section'>
                 <h2>우리의 비전</h2>
                 <div className='sub_visual'>
