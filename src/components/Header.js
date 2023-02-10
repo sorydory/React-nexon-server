@@ -14,7 +14,7 @@ const Header = () => {
                     <li><a href=''>게임</a></li>
                     <li><a href=''>인재채용</a></li>
                     <li><a href=''>투자정보</a></li>
-                    <li><a href=''>미디어</a></li>
+                    <li><Link to='/media'>미디어</Link></li>
                 </ul>
                 <div className='icon'>
                     <BiChevronsUp/>

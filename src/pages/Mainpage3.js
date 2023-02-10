@@ -7,7 +7,7 @@ const MainPage3 = () =>{
         <div className="main3">
             <div className="main3h">
                 <h2>News</h2>
-                <p><Link to="/SubNews"><b>more →</b></Link></p>
+                <p><Link to="/subnews"><b>more →</b></Link></p>
             </div>
             <div className="main3sub">
                 <ul>

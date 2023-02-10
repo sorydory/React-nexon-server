@@ -15,6 +15,7 @@ function App() {
         <Route path='/' element={<Main/>}/>
         <Route path='/subnexongames' element={<SubNexonGames/>}/>
         <Route path='/subnews' element={<SubNews/>}/>
+        <Route path='/media' element={<SubNews/>}/>
       </Routes>
       <Footer/>
     </div>
