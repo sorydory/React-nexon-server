@@ -15,17 +15,17 @@
 .menu h1 img{
     width: 100%;
 }
-.menu ul {
+.menu .main_menu {
     display: flex;
     text-align: center;
     font-size: 23px;
     font-weight: bold;
 }
-.menu ul li {
+.menu .main_menu li {
     padding: 0 40px ;
     color: #333;
 }
-.menu ul li:hover {
+.menu .main_menu li:hover {
     color: #ccc;
 }
 .icon {
