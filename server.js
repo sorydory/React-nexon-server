@@ -47,9 +47,9 @@ conn.connect();
 //회원가입 요청 
 app.post("/join", async(req,res)=>{
     //입력받은 비밀번호 mytextpass로 할당
-    const mytextpass = req.body.aw_password;
+    const mytextpass = req.body.m_pass;
     let myPass = "";
-    const { aw_id, aw_password,aw_passwordch,aw_name,aw_nickname,aw_year,aw_month,aw_day,aw_yny,aw_phone,aw_sns,aw_email1,aw_email2} = req.body;
+    const { m_id, m_name, m_pass,m_passch,m_email,m_phone,m_address1,m_address2} = req.body;
     console.log(req.body);
     //빈문자열이 아니고 undefined가 아닐때
     if(mytextpass != '' && mytextpass != undefined){
@@ -59,9 +59,9 @@ app.post("/join", async(req,res)=>{
             bcrypt.hash(mytextpass, salt, function(err, hash) {
                 myPass = hash;
                 //쿼리작성
-                conn.query(`insert into member(aw_id, aw_password,aw_passwordch,aw_name,aw_nickname,aw_year,aw_month,aw_day,aw_yny,aw_phone,aw_sns,aw_email1,aw_email2)
-                values('${aw_id}','${myPass}','${myPass}','${aw_name}','${aw_nickname}',
-                '${aw_year}','${aw_month}','${aw_day}','${aw_yny}','${aw_phone}','${aw_sns}','${aw_email1}','${aw_email2}')
+                conn.query(`insert into member(m_id,m_name, m_pass,m_passch,m_email,m_phone,m_address1,m_address2)
+                values('${m_id}','${m_name}','${m_pass}','${m_passch}','${m_email}',
+                '${m_phone}','${m_address1}','${m_address2}'')
                 `,(err, result, fields)=>{
                 if(result){
                     res.send("등록되었습니다.");
@@ -70,7 +70,7 @@ app.post("/join", async(req,res)=>{
             });
         });
     }
-    //insert into member(m_name, m_pass, m_phone, m_nickname, m_add1, m_add2)
+    //insert into member(m_id, m_name, m_pass, m_passch, m_phone, m_email, m_address1, m_address2)
     //values(${})
 })
 
@@ -78,16 +78,16 @@ app.post("/join", async(req,res)=>{
 app.post("/login",async (req,res)=> {
     // 1)useremail에 일치하는 데이터가 있는지 확인
     // 2)userpass 암호화를 해서 쿼리 결과의 패스워드랑 일치하는 체크
-   const {aw_id,aw_password} = req.body;
+   const {m_id,m_pass} = req.body;
    
-   conn.query(`select * from member where aw_id = '${aw_id}'`,
+   conn.query(`select * from member where m_id = '${m_id}'`,
    (err,result,fields)=>{
     //결과가 undefind가 아니고 결과의 0번째가 undefind가 아닐때
     //결과가 있을때
     console.log(result);
         if(result != undefined && result[0] != undefined){
             //compare => userpass,result[0].m_pass 비교해서 뒤에 함수호출 
-            bcrypt.compare(aw_password, result[0].aw_password, function(err,rese){
+            bcrypt.compare(m_pass, result[0].m_pass, function(err,rese){
                 //result==true
                 if(rese){
                     console.log("로그인 성공 우헤헤");
@@ -105,24 +105,24 @@ app.post("/login",async (req,res)=> {
 
 //아이디 찾기 요청       (요청, 응답)
 app.post("/findid", async(req,res)=>{
-    const{aw_name,aw_phone,aw_email1} = req.body;
+    const{m_name,m_phone,m_email1} = req.body;
     //퀴리문 ,실행했을때 결과를 불러오는 콜백함수
-    conn.query(`select * from member where aw_name = '${aw_name}' and aw_phone='${aw_phone}' and aw_email1='${aw_email1}'`,(err,result,fields)=>{
+    conn.query(`select * from member where m_name = '${m_name}' and m_phone='${m_phone}' and m_email='${m_email}'`,(err,result,fields)=>{
         if(result) {
-            console.log(result[0].aw_id);
-            res.send(result[0].aw_id);
+            console.log(result[0].m_id);
+            res.send(result[0].m_id);
         }
      });
 })
 
 //비밀번호찾기 요청       (요청, 응답)
 app.post("/findpass", async(req,res)=>{
-    const{aw_id,aw_phone} = req.body;
+    const{m_id,m_phone} = req.body;
     //퀴리문 ,실행했을때 결과를 불러오는 콜백함수 
-    conn.query(`select * from member where aw_id = '${aw_id}' and aw_phone='${aw_phone}'`,(err,result,fields)=>{
+    conn.query(`select * from member where m_id = '${m_id}' and m_phone='${m_phone}'`,(err,result,fields)=>{
         if(result) {
-            res.send(result[0].aw_id);
-            console.log(result[0].aw_id);
+            res.send(result[0].m_id);
+            console.log(result[0].m_id);
         }
         console.log(err);
      });
@@ -131,11 +131,11 @@ app.post("/findpass", async(req,res)=>{
 
 //패스워드 변경 요청
 app.patch("/updatePw", async (req,res)=>{
-    const {aw_password, aw_id} = req.body;
+    const {m_pass, m_id} = req.body;
     //update 테이블 이름
     //set 필드이름=데이블값
     //where 조건절 update member set m_pass 
-    const mytextpass = aw_password;
+    const mytextpass = m_password;
     let myPass = "";
     if(mytextpass != '' && mytextpass != undefined){
         bcrypt.genSalt(saltRounds, function(err, salt) {
@@ -144,7 +144,7 @@ app.patch("/updatePw", async (req,res)=>{
             bcrypt.hash(mytextpass, salt, function(err, hash) {
                 myPass = hash;
                 //쿼리작성
-                conn.query(`update member set aw_password ='${myPass}', aw_passwordch='${myPass}' where aw_id='${aw_id}'
+                conn.query(`update member set m_pass ='${myPass}', m_passch='${myPass}' where m_id='${m_id}'
                 `,(err, result, fields)=>{
                 if(result){
                     res.send("등록되었습니다.");
@@ -159,9 +159,9 @@ app.patch("/updatePw", async (req,res)=>{
 
 //뉴스 등록 요청 
 app.post('/news',async (req,res)=>{
-    const {f_name,f_category,f_img,f_price} = req.body;
-    conn.query(`insert into news (f_name,f_category,f_img,f_price) values(?,?,?,?)`,
-        [f_name,f_category,f_img,f_price],
+    const {n_title,n_date,n_titledesc,n_desc,n_image} = req.body;
+    conn.query(`insert into news (n_title,n_date,n_titledesc,n_desc,n_image) values(?,?,?,?)`,
+        [n_title,n_date,n_titledesc,n_desc,n_image],
         (err,result,fileds)=>{
             if(result){
                 res.send("ok")
@@ -171,42 +171,42 @@ app.post('/news',async (req,res)=>{
     })
 })
 
-//음식 데이터 불러오기
-app.get("/AW/bread",async (req,res) => {
-    conn.query(`select * from food where f_category='브레드' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
-app.get("/AW/cake",async (req,res) => {
-    conn.query(`select * from food where f_category='케이크' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
-app.get("/AW/sandwich",async (req,res) => {
-    conn.query(`select * from food where f_category='샌드위치 & 샐러드' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
-app.get("/AW/food",async (req,res) => {
-    conn.query(`select * from food where f_category='따뜻한 푸드' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
-app.get("/AW/fruit",async (req,res) => {
-    conn.query(`select * from food where f_category='과일 & 요거트' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
-app.get("/AW/snack",async (req,res) => {
-    conn.query(`select * from food where f_category='스낵 & 미니 디저트' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
-app.get("/AW/icecream",async (req,res) => {
-    conn.query(`select * from food where f_category='아이스크림' `,(err,result,fields)=>{
-        res.send(result)
-    })
-})
+// //음식 데이터 불러오기
+// app.get("/AW/bread",async (req,res) => {
+//     conn.query(`select * from food where f_category='브레드' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
+// app.get("/AW/cake",async (req,res) => {
+//     conn.query(`select * from food where f_category='케이크' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
+// app.get("/AW/sandwich",async (req,res) => {
+//     conn.query(`select * from food where f_category='샌드위치 & 샐러드' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
+// app.get("/AW/food",async (req,res) => {
+//     conn.query(`select * from food where f_category='따뜻한 푸드' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
+// app.get("/AW/fruit",async (req,res) => {
+//     conn.query(`select * from food where f_category='과일 & 요거트' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
+// app.get("/AW/snack",async (req,res) => {
+//     conn.query(`select * from food where f_category='스낵 & 미니 디저트' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
+// app.get("/AW/icecream",async (req,res) => {
+//     conn.query(`select * from food where f_category='아이스크림' `,(err,result,fields)=>{
+//         res.send(result)
+//     })
+// })
 
 //서버를 구동 
 app.listen(port,()=>{
