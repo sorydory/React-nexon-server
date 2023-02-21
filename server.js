@@ -61,7 +61,7 @@ app.post("/join", async(req,res)=>{
                 //쿼리작성
                 conn.query(`insert into member(m_id,m_name, m_pass,m_passch,m_email,m_phone,m_address1,m_address2)
                 values('${m_id}','${m_name}','${m_pass}','${m_passch}','${m_email}',
-                '${m_phone}','${m_address1}','${m_address2}'')
+                '${m_phone}','${m_address1}','${m_address2}')
                 `,(err, result, fields)=>{
                 if(result){
                     res.send("등록되었습니다.");
@@ -105,7 +105,7 @@ app.post("/login",async (req,res)=> {
 
 //아이디 찾기 요청       (요청, 응답)
 app.post("/findid", async(req,res)=>{
-    const{m_name,m_phone,m_email1} = req.body;
+    const{m_name,m_phone,m_email} = req.body;
     //퀴리문 ,실행했을때 결과를 불러오는 콜백함수
     conn.query(`select * from member where m_name = '${m_name}' and m_phone='${m_phone}' and m_email='${m_email}'`,(err,result,fields)=>{
         if(result) {
@@ -158,18 +158,18 @@ app.patch("/updatePw", async (req,res)=>{
  })
 
 //뉴스 등록 요청 
-app.post('/news',async (req,res)=>{
-    const {n_title,n_date,n_titledesc,n_desc,n_image} = req.body;
-    conn.query(`insert into news (n_title,n_date,n_titledesc,n_desc,n_image) values(?,?,?,?)`,
-        [n_title,n_date,n_titledesc,n_desc,n_image],
-        (err,result,fileds)=>{
-            if(result){
-                res.send("ok")
-            }else{
-                console.log(err);
-            }
-    })
-})
+// app.post('/news',async (req,res)=>{
+//     const {n_title,n_date,n_titledesc,n_desc,n_image} = req.body;
+//     conn.query(`insert into news (n_title,n_date,n_titledesc,n_desc,n_image) values(?,?,?,?)`,
+//         [n_title,n_date,n_titledesc,n_desc,n_image],
+//         (err,result,fileds)=>{
+//             if(result){
+//                 res.send("ok")
+//             }else{
+//                 console.log(err);
+//             }
+//     })
+// })
 
 // //음식 데이터 불러오기
 // app.get("/AW/bread",async (req,res) => {
